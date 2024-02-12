@@ -38,22 +38,20 @@ int main(int argc, char** argv)
         DrawRectangle(0, 0, width, height, COLOUR_BACKGROUND);
         
         drawBoard(&board, width, height);
-        
-        DrawFPS(0, 0);
 
         handleMoves(&board, width, height);
         drawPieces(&board, width, height);
 
+        DrawFPS(0, 0);
         EndDrawing();
         
-
-        if(IsKeyDown(KEY_Q)) CloseWindow();
     }
 
 #ifdef DEBUG
+    loadBoard(&board, "rn1qkbr1/pp3p1p/2p1b2n/3pp1p1/PPB1P1P1/5N1P/2PP1P2/RNBQK1R1 b Qq b3 0 8");
     for (int i = 0; i < 64; i++)
     {
-        if (!(i % 8)) putc('\n', stdout);
+        if (!(i % 8)) putc('\n', stdout); 
         putc(board.pieces[i], stdout);
     }
     putc('\n', stdout);

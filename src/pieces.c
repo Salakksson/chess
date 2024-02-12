@@ -114,19 +114,19 @@ void handleMoves(board_t* board, int width, int height)
                     board->enpassant = 0;
                     if (board->pieces[board->selectedPiece] == 'p')
                     {
-                        if (board->selectedPiece - square == 16) board->enpassant = square+8;
+                        if (board->selectedPiece - square == -16) board->enpassant = square-8;
                         if (enpassant) board->pieces[square-8] = ' ';
                     }
                     else if (board->pieces[board->selectedPiece] == 'P')
                     {
-                        if (board->selectedPiece - square == 16) board->enpassant = square-8;
+                        if (board->selectedPiece - square == 16) board->enpassant = square+8;
                         if (enpassant) board->pieces[square+8] = ' ';
                     }
 
                     board->pieces[square] = board->pieces[board->selectedPiece];
                     board->pieces[board->selectedPiece] = ' ';
 
-
+                    if (board->move == false) board->fullmove++;
                     board->move = !board->move;
                 #ifdef DEBUG
                     printf("Valid move: %d to %d\n", board->selectedPiece, square);
@@ -136,6 +136,30 @@ void handleMoves(board_t* board, int width, int height)
                 else printf("Invalid move: %d to %d\n", board->selectedPiece, square);
             #endif
                 board->selectedPiece = -1;
+                if ((board->pieces[square] == 'p' && squareY == 7) || (board->pieces[square] == 'P' && squareY == 0))
+                {
+                    printf("tf 2.0\n");
+                    
+                    drawPieces(&board, width, height);
+
+                    DrawFPS(0, 0);
+                    EndDrawing();
+                    while(!WindowShouldClose())
+                    {
+                        BeginDrawing();
+                        DrawRectangle(0, 0, width, height, COLOUR_BACKGROUND);
+        
+                        drawBoard(&board, width, height);
+                        drawPieces(&board, width, height);
+
+                        DrawRectangleRounded((Rectangle){width/2 - min/4, height/2 - min/4, min/2, min/2},
+                                                0.5f, 20, COLOUR_BACKGROUND);
+                        DrawFPS(0, 0);
+
+                        EndDrawing();
+                    }
+                    BeginDrawing();
+                }
             }
 
             board->isMouseHeld = false;

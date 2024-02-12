@@ -118,6 +118,7 @@ void drawBoard(board_t* board, int width, int height)
         struct Color colour = ((x+y)%2) ? COLOUR_DARK : COLOUR_LIGHT;
         int squareSize = min/8;
 
+        //if (i == board->enpassant) colour = COLOUR_BACKGROUND;
         DrawRectangle((width-min)/2 + x * squareSize, (height-min)/2 + y * squareSize, squareSize, squareSize, colour);
     }
 }

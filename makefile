@@ -5,6 +5,8 @@ LDFLAGS		= -lraylib -lm
 DIR_SRC     = ./src
 DIR_BUILD   = ./bin
 
+PLATFORM 	= linux/
+
 TARGET      = chess
 
 SRCS        = $(wildcard $(DIR_SRC)/*.c)
@@ -15,8 +17,8 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS) $(DIR_BUILD)/main.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
-	@cp ./$(TARGET) release
-	@cp -r ./assets release
+	@cp ./$(TARGET) release/$(PLATFORM)
+	@cp -r ./assets release/$(PLATFORM)
 
 $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@

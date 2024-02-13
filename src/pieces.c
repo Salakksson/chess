@@ -46,9 +46,7 @@ void drawPieces(board_t* board, int width, int height)
         
         if (board->pieces[i] != ' ')
         {
-            txt.width = squareSize;
-            txt.height = squareSize;
-            if (i == board->selectedPiece)
+            if (i == board->selectedPiece && !board->promotion)
             {
                 int mouseX = GetMouseX();
                 int mouseY = GetMouseY();
@@ -135,31 +133,12 @@ void handleMoves(board_t* board, int width, int height)
             #ifdef DEBUG
                 else printf("Invalid move: %d to %d\n", board->selectedPiece, square);
             #endif
-                board->selectedPiece = -1;
+                
                 if ((board->pieces[square] == 'p' && squareY == 7) || (board->pieces[square] == 'P' && squareY == 0))
                 {
-                    printf("tf 2.0\n");
-                    
-                    drawPieces(&board, width, height);
-
-                    DrawFPS(0, 0);
-                    EndDrawing();
-                    while(!WindowShouldClose())
-                    {
-                        BeginDrawing();
-                        DrawRectangle(0, 0, width, height, COLOUR_BACKGROUND);
-        
-                        drawBoard(&board, width, height);
-                        drawPieces(&board, width, height);
-
-                        DrawRectangleRounded((Rectangle){width/2 - min/4, height/2 - min/4, min/2, min/2},
-                                                0.5f, 20, COLOUR_BACKGROUND);
-                        DrawFPS(0, 0);
-
-                        EndDrawing();
-                    }
-                    BeginDrawing();
-                }
+                    board-> promotion = true;
+                    board->selectedPiece = square;
+                } else board->selectedPiece = -1;
             }
 
             board->isMouseHeld = false;
@@ -167,9 +146,40 @@ void handleMoves(board_t* board, int width, int height)
 
    }
 
+}
 
+void loadTextures()
+{
+    txtr = LoadTexture("assets/r.png");
+    txtn = LoadTexture("assets/n.png");
+    txtb = LoadTexture("assets/b.png");
+    txtq = LoadTexture("assets/q.png");
+    txtk = LoadTexture("assets/k.png");
+    txtp = LoadTexture("assets/p.png");
+                      
+    txtR = LoadTexture("assets/R.png");
+    txtN = LoadTexture("assets/N.png");
+    txtB = LoadTexture("assets/B.png");
+    txtQ = LoadTexture("assets/Q.png");
+    txtK = LoadTexture("assets/K.png");
+    txtP = LoadTexture("assets/P.png");
+}
 
+void updateTextures(int width, int height)
+{
+    int min = MIN(width, height);
+    txtr.width = min/8; txtr.height = min/8;
+    txtn.width = min/8; txtn.height = min/8;
+    txtb.width = min/8; txtb.height = min/8;
+    txtq.width = min/8; txtq.height = min/8;
+    txtk.width = min/8; txtk.height = min/8;
+    txtp.width = min/8; txtp.height = min/8;
 
-
+    txtR.width = min/8; txtR.height = min/8;
+    txtN.width = min/8; txtN.height = min/8;
+    txtB.width = min/8; txtB.height = min/8;
+    txtQ.width = min/8; txtQ.height = min/8;
+    txtK.width = min/8; txtK.height = min/8;
+    txtP.width = min/8; txtP.height = min/8;
 
 }

@@ -102,7 +102,7 @@ board_t createBoard()
     
     board.isMouseHeld = false;
     board.selectedPiece = -1;
-    
+    board.promotion = false;
     return board;
 }
 

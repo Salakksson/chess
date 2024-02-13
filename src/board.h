@@ -21,6 +21,8 @@ typedef struct
          halfmove: 6,
          fullmove: 16;
 
+    bool promotion;
+
     bool isMouseHeld;
     uint8_t selectedPiece;
 } board_t;

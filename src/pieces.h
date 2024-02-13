@@ -27,4 +27,6 @@ void drawPieces(board_t* board, int width, int height);
 
 void handleMoves(board_t* board, int width, int height);
 
+void loadTextures();
 
+void updateTextures(int width, int height);

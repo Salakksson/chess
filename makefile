@@ -9,7 +9,7 @@ PLATFORM 	= linux
 
 TARGET      = chess
 
-# CC         	= clang
+CC         	= clang
 # PLATFORM 	= macos
 
 SRCS        = $(wildcard $(DIR_SRC)/*.c)

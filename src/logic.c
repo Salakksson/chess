@@ -65,11 +65,9 @@ bool isBishopMove(board_t* board, int start, int end)
             {
                 if (getPiece(board, x, y) != ' ')
                 {
-                    printf("piece %c at %d %d\n", getPiece(board, x, y), x, y);
                     return false;
 
                 }
-                printf("x=%d, y=%d\n", x, y);
 
                 x += sign(dx);
                 y += sign(dy);
@@ -146,7 +144,7 @@ bool isBlackPawnMove(board_t* board, int start, int end, bool* enpassant)
 
     if (y1 == 1) // Double move on first
     {
-        if ((y2 < 4) && x1 == x2) return true;
+        if (INRANGE(y2, 2, 3) && (x1 == x2) && getPiece(board, x1, 2) == ' ') return true;
     }
     else if ((y2-y1 == 1) && x1 == x2) return true;     // Regular pawn moves
     if ((abs(x1-x2) == 1) && (y2 - y1) == 1)            // Captures
@@ -167,7 +165,7 @@ bool isWhitePawnMove(board_t* board, int start, int end, bool* enpassant)
     *enpassant = end == board->enpassant;
     if (y1 == 6) // Double move on first
     {
-        if ((y2 > 3) && x1 == x2) return true;
+        if (INRANGE(y2, 4, 5) && (x1 == x2) && getPiece(board, x1, 5) == ' ') return true;
     }
     else if ((y1-y2 == 1) && x1 == x2) return true;     // Regular pawn moves
     if ((abs(x1-x2) == 1) && (y1 - y2) == 1)            // Captures

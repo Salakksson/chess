@@ -7,7 +7,7 @@
 
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
-#define INRANGE(X, L, H) (X-L)*(X-H) <= 0 ? 1 : 0
+#define INRANGE(X, L, H) (X-L)*(X-H) <= 0
 
 //#define DEBUG
    

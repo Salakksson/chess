@@ -133,7 +133,7 @@ void drawBoard(board_t* board, int width, int height)
         struct Color colour = ((x+y)%2) ? COLOUR_DARK : COLOUR_LIGHT;
 
         bool discard;
-        if (isValidMove(board, board->selectedPiece, i, &discard, &discard) || board->selectedPiece == i) colour = ((x+y)%2) ? COLOUR_HIGHLIGHT_DARK : COLOUR_HIGHLIGHT_LIGHT;
+        if (isValidMove(board, board->selectedPiece, i, &discard, &discard)) colour = ((x+y)%2) ? COLOUR_HIGHLIGHT_DARK : COLOUR_HIGHLIGHT_LIGHT;
         int squareSize = min/8;
 
         //if (i == board->enpassant) colour = COLOUR_BACKGROUND;

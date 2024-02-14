@@ -23,8 +23,12 @@ void drawPieces(board_t* board, int width, int height)
     {
         int x = i % 8;
         int y = i / 8;
-        int squareSize = min/8;
 
+        if (board->flipped) x = 7-x;
+        if (board->flipped) y = 7-y;
+
+        int squareSize = min/8;
+        
         Texture txt;
         switch(board->pieces[i])
         {
@@ -75,6 +79,8 @@ void handleMoves(board_t* board, int width, int height)
                 int squareX = (mouseX + min/2 - width/2) * 8 / min;
                 int squareY = (mouseY + min/2 - height/2) * 8 / min;
                 int square = squareX + 8 * squareY;
+                if (board->flipped) square = 63-square;
+
             #ifdef DEBUG
                 printf("Picking up from square %d: x: %d y: %d\n", square, squareX, squareY);
             #endif
@@ -102,11 +108,12 @@ void handleMoves(board_t* board, int width, int height)
                 int squareX = (mouseX + min/2 - width/2) * 8 / min;
                 int squareY = (mouseY + min/2 - height/2) * 8 / min;
                 int square = squareX + 8 * squareY;
+                if (board->flipped) square = 63-square;
             #ifdef DEBUG
                 printf("Dropping to square %d: x: %d y: %d\n", square, squareX, squareY);
             #endif
-                bool enpassant;
-                bool castle;
+                bool enpassant = false;
+                bool castle = false;
                 if(isValidMove(board, board->selectedPiece, square, &enpassant, &castle))
                 {
                     board->enpassant = 0;
@@ -121,6 +128,37 @@ void handleMoves(board_t* board, int width, int height)
                         if (enpassant) board->pieces[square+8] = ' ';
                     }
 
+                    if (castle)
+                    {
+                        switch(square)
+                        {
+                            case G1:
+                                board->pieces[H1] = ' ';
+                                board->pieces[F1] = 'R';
+                                board->castle_wk = false;
+                                board->castle_wq = false;
+                                break;
+                            case C1:
+                                board->pieces[A1] = ' ';
+                                board->pieces[D1] = 'R';
+                                board->castle_wk = false;
+                                board->castle_wq = false;
+                                break;
+                            case G8:
+                                board->pieces[H8] = ' ';
+                                board->pieces[F8] = 'r';
+                                board->castle_bk = false;
+                                board->castle_bq = false;
+                                break;
+                            case C8:
+                                board->pieces[A8] = ' ';
+                                board->pieces[D8] = 'r';
+                                board->castle_bk = false;
+                                board->castle_bq = false;
+                                break;
+
+                        }
+                    }
                     board->pieces[square] = board->pieces[board->selectedPiece];
                     board->pieces[board->selectedPiece] = ' ';
 
@@ -150,19 +188,19 @@ void handleMoves(board_t* board, int width, int height)
 
 void loadTextures()
 {
-    txtr = LoadTexture("assets/r.png");
-    txtn = LoadTexture("assets/n.png");
-    txtb = LoadTexture("assets/b.png");
-    txtq = LoadTexture("assets/q.png");
-    txtk = LoadTexture("assets/k.png");
-    txtp = LoadTexture("assets/p.png");
+    txtr = LoadTexture("assets/pieces/r.png");
+    txtn = LoadTexture("assets/pieces/n.png");
+    txtb = LoadTexture("assets/pieces/b.png");
+    txtq = LoadTexture("assets/pieces/q.png");
+    txtk = LoadTexture("assets/pieces/k.png");
+    txtp = LoadTexture("assets/pieces/p.png");
                       
-    txtR = LoadTexture("assets/R.png");
-    txtN = LoadTexture("assets/N.png");
-    txtB = LoadTexture("assets/B.png");
-    txtQ = LoadTexture("assets/Q.png");
-    txtK = LoadTexture("assets/K.png");
-    txtP = LoadTexture("assets/P.png");
+    txtR = LoadTexture("assets/pieces/R.png");
+    txtN = LoadTexture("assets/pieces/N.png");
+    txtB = LoadTexture("assets/pieces/B.png");
+    txtQ = LoadTexture("assets/pieces/Q.png");
+    txtK = LoadTexture("assets/pieces/K.png");
+    txtP = LoadTexture("assets/pieces/P.png");
 }
 
 void updateTextures(int width, int height)

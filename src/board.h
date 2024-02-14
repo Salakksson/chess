@@ -25,7 +25,11 @@ typedef struct
 
     bool isMouseHeld;
     uint8_t selectedPiece;
+    bool flipped;
 } board_t;
+
+char getPiece(board_t* board, int x, int y);
+void setPiece(board_t* board, int x, int y, char c);
 
 
 void loadBoard(board_t* board, char* FEN);

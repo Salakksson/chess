@@ -1,4 +1,7 @@
 #include "board.h"
+#include <stdlib.h>
+
+bool isValidMove(board_t* board, int start, int end, bool* enpassant, bool* castle);
 
 char getPiece(board_t* board, int x, int y)
 {
@@ -31,22 +34,30 @@ void loadBoard(board_t* board, char* FEN)
         char current = *fen;
         switch(current)
         {
-            case '1' ... '8':
+            case '1': case '2': case '3': case '4':
+            case '5': case '6': case '7': case '8':
+            {
                 int num = atoi(fen);
                 x += num;
                 fen ++;
                 break;
+            }
             case '/':
+            {
                 y++;
                 x = 0;
                 fen++;
                 break;
+            }
             case 'p':
+            {
                 setPiece(board, x, y, 'p');
                 x++;
                 fen++;
                 break;
+            }
             default:
+            {
                 char c = current;
                 if (!((c-'r')*(c-'n')*(c-'b')*(c-'q')*(c-'k')*(c-'p')*  // Evil arithmetic trick
                       (c-'R')*(c-'N')*(c-'B')*(c-'Q')*(c-'K')*(c-'P'))) // Its slower but looks nice
@@ -61,6 +72,7 @@ void loadBoard(board_t* board, char* FEN)
                     return;
                 }
                 break;
+            }
         }
     }
 
@@ -103,6 +115,7 @@ board_t createBoard()
     board.isMouseHeld = false;
     board.selectedPiece = -1;
     board.promotion = false;
+    board.flipped = false;
     return board;
 }
 
@@ -115,11 +128,21 @@ void drawBoard(board_t* board, int width, int height)
     {
         int x = i % 8;
         int y = i / 8;
+        if (board->flipped) x = 7-x;
+        if (board->flipped) y = 7-y;
         struct Color colour = ((x+y)%2) ? COLOUR_DARK : COLOUR_LIGHT;
+
+        bool discard;
+        if (isValidMove(board, board->selectedPiece, i, &discard, &discard) || board->selectedPiece == i) colour = ((x+y)%2) ? COLOUR_HIGHLIGHT_DARK : COLOUR_HIGHLIGHT_LIGHT;
         int squareSize = min/8;
 
         //if (i == board->enpassant) colour = COLOUR_BACKGROUND;
         DrawRectangle((width-min)/2 + x * squareSize, (height-min)/2 + y * squareSize, squareSize, squareSize, colour);
+    #ifdef NUMBERS
+        char number[5];
+        snprintf(number, 4, "%d", i);
+        DrawText(number, (width-min)/2 + x * squareSize, (height-min)/2 + y * squareSize, 24, BLACK);
+    #endif
     }
 }
 

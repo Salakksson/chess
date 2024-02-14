@@ -32,11 +32,13 @@ int main(int argc, char** argv)
 
         updateTextures(width, height);
 
+        if (IsKeyPressed(KEY_F)) board.flipped = !board.flipped;
         drawPieces(&board, width, height);
 
         if (board.promotion)
             drawAndHandlePromotion(&board, width, height);
         
+        if (IsKeyPressed(KEY_F12)) TakeScreenshot("assets/screenshots/image.png");
         DrawFPS(0, 0);
         EndDrawing();
         

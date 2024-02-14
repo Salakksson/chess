@@ -5,17 +5,17 @@
 
 #include "board.h"
 
+int sign(int num);
 
+bool isRookMove(board_t* board, int start, int end);
 
-bool isRookMove(int start, int end);
-
-bool isBishopMove(int start, int end);
+bool isBishopMove(board_t* board, int start, int end);
 
 bool isKnightMove(int start, int end);
 
-bool isQueenMove(int start, int end);
+bool isQueenMove(board_t* board, int start, int end);
 
-bool isKingMove(int start, int end);
+bool isKingMove(board_t* board, int start, int end, bool* castle);
 
 bool isBlackPawnMove(board_t* board, int start, int end, bool* enpassant);
 

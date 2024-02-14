@@ -188,19 +188,19 @@ void handleMoves(board_t* board, int width, int height)
 
 void loadTextures()
 {
-    txtr = LoadTexture("assets/pieces/r.png");
-    txtn = LoadTexture("assets/pieces/n.png");
-    txtb = LoadTexture("assets/pieces/b.png");
-    txtq = LoadTexture("assets/pieces/q.png");
-    txtk = LoadTexture("assets/pieces/k.png");
-    txtp = LoadTexture("assets/pieces/p.png");
+    txtr = LoadTexture("assets/pieces/br.png");
+    txtn = LoadTexture("assets/pieces/bn.png");
+    txtb = LoadTexture("assets/pieces/bb.png");
+    txtq = LoadTexture("assets/pieces/bq.png");
+    txtk = LoadTexture("assets/pieces/bk.png");
+    txtp = LoadTexture("assets/pieces/bp.png");
                       
-    txtR = LoadTexture("assets/pieces/R.png");
-    txtN = LoadTexture("assets/pieces/N.png");
-    txtB = LoadTexture("assets/pieces/B.png");
-    txtQ = LoadTexture("assets/pieces/Q.png");
-    txtK = LoadTexture("assets/pieces/K.png");
-    txtP = LoadTexture("assets/pieces/P.png");
+    txtR = LoadTexture("assets/pieces/wr.png");
+    txtN = LoadTexture("assets/pieces/wn.png");
+    txtB = LoadTexture("assets/pieces/wb.png");
+    txtQ = LoadTexture("assets/pieces/wq.png");
+    txtK = LoadTexture("assets/pieces/wk.png");
+    txtP = LoadTexture("assets/pieces/wp.png");
 }
 
 void updateTextures(int width, int height)

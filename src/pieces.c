@@ -128,6 +128,40 @@ void handleMoves(board_t* board, int width, int height)
                         if (enpassant) board->pieces[square+8] = ' ';
                     }
 
+                    if (board->pieces[board->selectedPiece] == 'k')
+                    {
+                        board->castle_bk = false;
+                        board->castle_bq = false;
+                    }
+                    else if (board->pieces[board->selectedPiece] == 'K')
+                    {
+                        board->castle_wk = false;
+                        board->castle_wq = false;
+                    }
+
+                    if (board->pieces[board->selectedPiece] == 'r' && board->selectedPiece == H8) board->castle_bk = false;
+                    else if (board->pieces[board->selectedPiece] == 'r' && board->selectedPiece == A8) board->castle_bq = false;
+                    else if (board->pieces[board->selectedPiece] == 'R' && board->selectedPiece == H1) board->castle_wk = false;
+                    else if (board->pieces[board->selectedPiece] == 'R' && board->selectedPiece == A1) board->castle_wq = false;
+
+                    switch(square)
+                    {
+                        case A1:
+                            board->castle_wq = false;
+                            break;
+                        case A8:
+                            board->castle_bq = false;
+                            break;
+                        case H1:
+                            board->castle_wk = false;
+                            break;
+                        case H8:
+                            board->castle_bk = false;
+                            break;
+                        default:
+                            break;
+                    }
+
                     if (castle)
                     {
                         switch(square)
@@ -159,6 +193,8 @@ void handleMoves(board_t* board, int width, int height)
 
                         }
                     }
+
+                    
                     board->pieces[square] = board->pieces[board->selectedPiece];
                     board->pieces[board->selectedPiece] = ' ';
 

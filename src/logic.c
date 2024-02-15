@@ -146,7 +146,7 @@ bool isBlackPawnMove(board_t* board, int start, int end, bool* enpassant)
     {
         if (INRANGE(y2, 2, 3) && (x1 == x2) && getPiece(board, x1, 2) == ' ') return true;
     }
-    else if ((y2-y1 == 1) && x1 == x2) return true;     // Regular pawn moves
+    else if ((y2-y1 == 1) && x1 == x2 && getPiece(board, x2, y2) == ' ') return true;     // Regular pawn moves
     if ((abs(x1-x2) == 1) && (y2 - y1) == 1)            // Captures
     {
         if (board->pieces[end] != ' ' || end == board->enpassant) { *enpassant = end == board->enpassant; return true;};  // Evil syntax abuse
@@ -167,7 +167,7 @@ bool isWhitePawnMove(board_t* board, int start, int end, bool* enpassant)
     {
         if (INRANGE(y2, 4, 5) && (x1 == x2) && getPiece(board, x1, 5) == ' ') return true;
     }
-    else if ((y1-y2 == 1) && x1 == x2) return true;     // Regular pawn moves
+    else if ((y1-y2 == 1) && x1 == x2 && getPiece(board, x2, y2) == ' ') return true;     // Regular pawn moves
     if ((abs(x1-x2) == 1) && (y1 - y2) == 1)            // Captures
     {
         if (board->pieces[end] != ' ' || end == board->enpassant) { *enpassant = end == board->enpassant; return true;}; // Evil syntax abuse

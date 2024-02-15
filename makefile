@@ -34,4 +34,4 @@ clean:
 .PHONY: init
 
 init:
-	mkdir 	DIR_BUILD
+	mkdir 	$(DIR_BUILD)

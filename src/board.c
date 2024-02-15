@@ -116,6 +116,9 @@ board_t createBoard()
     board.selectedPiece = -1;
     board.promotion = false;
     board.flipped = false;
+
+    board.quit = false;
+
     return board;
 }
 

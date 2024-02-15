@@ -1,5 +1,5 @@
 CC         	= gcc
-CFLAGS		= -Wall -I/usr/include -O0 -g
+CFLAGS		= -Wall -I/usr/include -O3 -g
 LDFLAGS		= -lraylib -lm
 
 DIR_SRC     = ./src

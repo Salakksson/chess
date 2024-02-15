@@ -176,6 +176,21 @@ bool isWhitePawnMove(board_t* board, int start, int end, bool* enpassant)
     return false;
 }
 
+bool isWhiteInCheck(board_t* board)
+{
+    for (int i = 0; i < 63; i++)
+    {
+        if (board->pieces[i] == 'k')
+        {
+            for (int j = 0; j < 63; j++)
+            {
+                
+            }
+        }
+    }
+    return false;
+}
+
 bool isValidMove(board_t* board, int start, int end, bool* enpassant, bool* castle)
 {
     if (start > 63 || end > 63) return false;

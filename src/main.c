@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "board.h"
 #include "pieces.h"
+#include "network.h"
 
 int main(int argc, char** argv)
 {
@@ -14,6 +15,7 @@ int main(int argc, char** argv)
 
 
     board_t board = createBoard();
+
 
     while(!WindowShouldClose())
     {

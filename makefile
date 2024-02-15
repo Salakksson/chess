@@ -20,8 +20,8 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS) $(DIR_BUILD)/main.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
-	@cp ./$(TARGET) release/$(PLATFORM)/
-	@cp -r ./assets release/$(PLATFORM)/
+	# @cp ./$(TARGET) release/$(PLATFORM)/
+	# cp -r ./assets release/$(PLATFORM)/
 
 $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -30,3 +30,8 @@ $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
 
 clean:
 	rm -rf $(DIR_BUILD)/*.o
+
+.PHONY: init
+
+init:
+	mkdir 	DIR_BUILD

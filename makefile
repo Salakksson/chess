@@ -5,7 +5,7 @@ LDFLAGS		= -lraylib -lm
 DIR_SRC     = ./src
 DIR_BUILD   = ./bin
 
-PLATFORM 	= linux
+PLATFORM 	?= linux
 
 TARGET      = chess
 
@@ -29,6 +29,10 @@ $(TARGET): $(OBJS) $(DIR_BUILD)/main.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 	@cp ./$(TARGET) release/$(PLATFORM)/
 	cp -r ./assets release/$(PLATFORM)/
+ifeq ($(PLATFORM), windows)
+	rm $(TARGET).exe
+
+endif
 
 $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@

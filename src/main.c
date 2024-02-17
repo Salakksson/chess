@@ -5,10 +5,12 @@
 #include "board.h"
 #include "pieces.h"
 #include "network.h"
+#include "bot.h"
 
 int WinMain()
 {
     main(0, 0);
+    return 0;
 }
 
 int main(int argc, char** argv)
@@ -20,7 +22,6 @@ int main(int argc, char** argv)
 
 
     board_t board = createBoard();
-
 
     while(!WindowShouldClose())
     {

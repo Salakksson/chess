@@ -6,6 +6,11 @@
 #include "pieces.h"
 #include "network.h"
 
+int WinMain()
+{
+    main(0, 0);
+}
+
 int main(int argc, char** argv)
 {
     

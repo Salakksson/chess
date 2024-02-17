@@ -1,4 +1,4 @@
-CC         	= gcc
+CC 			= gcc
 CFLAGS		= -Wall -I/usr/include -O3 -g
 LDFLAGS		= -lraylib -lm
 
@@ -9,8 +9,15 @@ PLATFORM 	= linux
 
 TARGET      = chess
 
-CC         	= clang
-# PLATFORM 	= macos
+ifeq ($(PLATFORM), macos)
+	CC      = clang
+endif
+
+ifeq ($(PLATFORM), windows)
+	CC      = x86_64-w64-mingw32-gcc
+	CFLAGS	= -Wall -I/usr/x86_64-w64-mingw32/include -O3 -g
+	LDFLAGS	= -lraylib -lm
+endif
 
 SRCS        = $(wildcard $(DIR_SRC)/*.c)
 OBJS        = $(filter-out $(DIR_BUILD)/main.o, $(patsubst $(DIR_SRC)/%.c, $(DIR_BUILD)/%.o, $(SRCS)))
@@ -20,8 +27,8 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS) $(DIR_BUILD)/main.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
-	# @cp ./$(TARGET) release/$(PLATFORM)/
-	# cp -r ./assets release/$(PLATFORM)/
+	@cp ./$(TARGET) release/$(PLATFORM)/
+	cp -r ./assets release/$(PLATFORM)/
 
 $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -35,3 +42,7 @@ clean:
 
 init:
 	mkdir 	$(DIR_BUILD)
+	mkdir release
+	mkdir release/windows
+	mkdir release/macos
+	mkdir release/linux

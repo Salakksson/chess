@@ -225,11 +225,11 @@ bool isPseudolegal(board_t* board, int start, int end)
 
 bool isWhiteInCheck(board_t* board)
 {
-    for (int i = 0; i < 63; i++)
+    for (int i = 0; i < 64; i++)
     {
         if (board->pieces[i] == 'K')
         {
-            for (int j = 0; j < 63; j++)
+            for (int j = 0; j < 64; j++)
             {
                 if (isPseudolegal(board, j, i)) return true;
             }
@@ -241,11 +241,11 @@ bool isWhiteInCheck(board_t* board)
 
 bool isBlackInCheck(board_t* board)
 {
-    for (int i = 0; i < 63; i++)
+    for (int i = 0; i < 64; i++)
     {
         if (board->pieces[i] == 'k')
         {
-            for (int j = 0; j < 63; j++)
+            for (int j = 0; j < 64; j++)
             {
                 if (isPseudolegal(board, j, i)) return true;
             }

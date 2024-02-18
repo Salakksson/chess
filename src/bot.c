@@ -1,8 +1,32 @@
 #include "bot.h"
 
+move_t mkmv(int start, int end, float eval)
+{
+    move_t move;
+    move.start = start;
+    move.end = end;
+    move.eval = eval;
+    return move;
+}
+
+void bubble_sort(move_t arr[], int n) {
+    int i, j;
+    move_t temp;
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j].eval > arr[j + 1].eval) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
 
 // Asserts that the move is valid
-board_t boardAfterMove(board_t* prevBoard, int start, int end)
+board_t performMove(board_t* prevBoard, int start, int end)
 {
     board_t board = *prevBoard;
 
@@ -100,10 +124,76 @@ board_t boardAfterMove(board_t* prevBoard, int start, int end)
 
 }
 
+float pawnValue(int x, int y)
+{
+    float value = 1.0f;
+    value *= pow(2.0f, ((float)y)/2.0f) * 0.7f;
+    value *= (1.1f - (pow(((float)x)-3.5f, 2.0f))/32.0f);
+    //printf("%f\n", value);
+    return value;
+}
+
+float squareValue(board_t* board, int x, int y)
+{
+    float value = 0;
+    switch(board->pieces[x + 8*y])
+    {
+        case 'r':
+            value -= 5.0f;
+            break;
+        case 'b':
+            value -= 3.2f;
+            break;
+        case 'n':
+            value -= 3.0f;
+            break;
+        case 'q':
+            value -= 9.0f;
+            break;
+        case 'p':
+            value = -pawnValue(x, y);
+            //printf("pawn value on %d %d: %f\n", x, y, value);
+            break;
+        case 'R':
+            value += 5.0f;
+            break;
+        case 'B':
+            value += 3.2f;
+            break;
+        case 'N':
+            value += 3.0f;
+            break;
+        case 'Q':
+            value += 9.0f;
+            break;
+        case 'P':
+            value = pawnValue(x, 7-y);
+            //printf("pawn value on %d %d: %f\n", x, y, value);
+            break;
+        default: break;
+    
+    }
+
+    return value;
+}
 
 
 
-int evaluateStatic(board_t* board);
+float evaluateStatic(board_t* board)
+{
+
+    float value = 0.0f;
+
+    for (int i = 0; i < 64; i++)
+    {
+        value += squareValue(board, i % 8, i / 8);
+    }
+
+    if (isWhiteInCheck(board)) value--;
+    if (isBlackInCheck(board)) value++;
+
+    return value;
+}
 
 int evaluateDepth(board_t* board, int depth);
 

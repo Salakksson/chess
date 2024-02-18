@@ -1,4 +1,5 @@
 #include "pieces.h"
+#include "bot.h"
 
 Texture2D txtr;
 Texture2D txtn;
@@ -63,8 +64,37 @@ void drawPieces(board_t* board, int width, int height)
 
 void handleMoves(board_t* board, int width, int height)
 {
-   if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-   {
+    if (board->move == false)
+    {
+        move_t* moves = malloc(218*sizeof(move_t));
+        bool bin;
+        int mv = 0;
+        for (int i = 0; i < 64; i++)
+        {
+            if (islower(board->pieces[i]))
+            {
+                for (int j = 0; j < 64; j++)
+                {
+                    if (isValidMove(board, i, j, &bin, &bin))
+                    {
+                        board_t newBoard = performMove(board, i, j);
+                        moves[mv] = mkmv(i, j, evaluateStatic(&newBoard));
+                        mv++;
+                    }
+                }
+            }
+        }
+        printf("%d\n", mv);
+        bubble_sort(moves, mv);
+        board_t newBoard = performMove(board, moves[0].start, moves[0].end);
+        *board = newBoard;
+        //memcpy(board, &newBoard, sizeof(newBoard));
+        board->move = true;
+        free(moves);
+    }
+
+    else if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {
         // Picking up piece
         if (!board->isMouseHeld)
         {
@@ -91,9 +121,9 @@ void handleMoves(board_t* board, int width, int height)
             board->isMouseHeld = true;
         }
 
-   }
-   else
-   {
+    }
+    else
+    {
         // Dropping piece
         if (board->isMouseHeld)
         {
@@ -214,11 +244,11 @@ void handleMoves(board_t* board, int width, int height)
                     board->selectedPiece = square;
                 } else board->selectedPiece = -1;
             }
-
+            printf("Evaluation: %f\n", evaluateStatic(board));
             board->isMouseHeld = false;
         }
 
-   }
+    }
 
 }
 

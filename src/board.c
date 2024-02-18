@@ -142,9 +142,10 @@ void drawBoard(board_t* board, int width, int height)
         //if (i == board->enpassant) colour = COLOUR_BACKGROUND;
         DrawRectangle((width-min)/2 + x * squareSize, (height-min)/2 + y * squareSize, squareSize, squareSize, colour);
     #ifdef NUMBERS
-        char number[5];
-        snprintf(number, 4, "%d", i);
-        DrawText(number, (width-min)/2 + x * squareSize, (height-min)/2 + y * squareSize, 24, BLACK);
+        char number[15];
+        snprintf(number, 14, "%.3f", squareValue(board, x, y));
+        printf("value on %d %d %s | %.3f\n", x, y, number, squareValue(board, x, y));
+        DrawText(number, (width-min)/2 + x * squareSize, (height-min)/2 + y * squareSize, 30, BLACK);
     #endif
     }
 }

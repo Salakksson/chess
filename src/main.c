@@ -41,6 +41,7 @@ int main(int argc, char** argv)
         updateTextures(width, height);
 
         if (IsKeyPressed(KEY_F)) board.flipped = !board.flipped;
+        if (IsKeyPressed(KEY_R)) board = createBoard();
         drawPieces(&board, width, height);
 
         if (board.promotion)

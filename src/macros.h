@@ -9,6 +9,7 @@
 
 #define INRANGE(X, L, H) (X-L)*(X-H) <= 0
 
+//#define NUMBERS
 //#define DEBUG
    
 #define COLOUR_DARK (Color){128, 161, 181, 255}

@@ -120,6 +120,7 @@ board_t performMove(board_t* prevBoard, int start, int end)
         board.promotion = true;
     }
 
+    board.move = !board.move;
     return board;
 
 }
@@ -195,7 +196,43 @@ float evaluateStatic(board_t* board)
     return value;
 }
 
-int evaluateDepth(board_t* board, int depth);
+int evaluateDepth(board_t* board, int depth)
+{
+
+
+
+
+}
+
+move_t bestMove(board_t* board)
+{
+    move_t* moves = malloc(218*sizeof(move_t));
+    bool bin;
+    int mv = 0;
+    int (*isActivePiece)(int) = board->move ? isupper : islower;
+    for (int i = 0; i < 64; i++)
+    {
+        if (isActivePiece(board->pieces[i]))
+        {
+            printf("poopy\n");
+            for (int j = 0; j < 64; j++)
+            {
+                if (isValidMove(board, i, j, &bin, &bin))
+                {
+                    board_t newBoard = performMove(board, i, j);
+                    moves[mv] = mkmv(i, j, evaluateStatic(&newBoard));
+                    mv++;
+                }
+            }
+        }
+    }
+    printf("%d\n", mv);
+    bubble_sort(moves, mv);
+    move_t ret = moves[board->move * (mv-1)];
+    free(moves);
+    return ret;
+    
+}
 
 
 

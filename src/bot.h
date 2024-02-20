@@ -28,7 +28,7 @@ float evaluateStatic(board_t* board);
 
 int evaluateDepth(board_t* board, int depth);
 
-
+move_t bestMove(board_t* board);
 
 
 

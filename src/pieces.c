@@ -66,31 +66,10 @@ void handleMoves(board_t* board, int width, int height)
 {
     if (board->move == false)
     {
-        move_t* moves = malloc(218*sizeof(move_t));
-        bool bin;
-        int mv = 0;
-        for (int i = 0; i < 64; i++)
-        {
-            if (islower(board->pieces[i]))
-            {
-                for (int j = 0; j < 64; j++)
-                {
-                    if (isValidMove(board, i, j, &bin, &bin))
-                    {
-                        board_t newBoard = performMove(board, i, j);
-                        moves[mv] = mkmv(i, j, evaluateStatic(&newBoard));
-                        mv++;
-                    }
-                }
-            }
-        }
-        printf("%d\n", mv);
-        bubble_sort(moves, mv);
-        board_t newBoard = performMove(board, moves[0].start, moves[0].end);
+        move_t move = bestMove(board);
+
+        board_t newBoard = performMove(board, move.start, move.end);
         *board = newBoard;
-        //memcpy(board, &newBoard, sizeof(newBoard));
-        board->move = true;
-        free(moves);
     }
 
     else if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))

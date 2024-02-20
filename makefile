@@ -30,7 +30,7 @@ $(TARGET): $(OBJS) $(DIR_BUILD)/main.o
 	@cp ./$(TARGET) release/$(PLATFORM)/
 	cp -r ./assets release/$(PLATFORM)/
 ifeq ($(PLATFORM), windows)
-	rm $(TARGET).exe
+	#rm $(TARGET).exe
 
 endif
 

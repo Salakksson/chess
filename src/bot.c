@@ -1,4 +1,5 @@
 #include "bot.h"
+#include "logic.h"
 
 move_t mkmv(int start, int end, float eval)
 {

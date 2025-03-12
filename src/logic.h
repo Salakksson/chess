@@ -23,6 +23,9 @@ bool isWhitePawnMove(board_t* board, int start, int end, bool* enpassant);
 
 bool isValidMove(board_t* board, int start, int end, bool* enpassant, bool* castle);
 
+bool isWhiteInCheck(board_t* board);
+
+bool isBlackInCheck(board_t* board);
 
 
 

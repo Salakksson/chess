@@ -7,16 +7,17 @@
 #include "network.h"
 #include "bot.h"
 
-int WinMain()
-{
-    main(0, 0);
-    return 0;
-}
+// int WinMain()
+// {
+//     main(0, 0);
+//     return 0;
+// }
 
 int main(int argc, char** argv)
 {
-    
-    InitWindow(1920, 1080, "Chess");
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+
+    InitWindow(800, 600, "Chess");
 
     loadTextures();
 
